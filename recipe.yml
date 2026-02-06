@@ -23,11 +23,11 @@ stages:
 
   # Put your custom actions below this comment
 
-  # - name: extra-packages
-  #   type: apt
-  #   source:
-  #     packages:
-  #     - syncthing
+  - name: extra-packages
+    type: apt
+    source:
+      packages:
+      - libfuse2t64
 
   - name: extra-modules
     type: includes
