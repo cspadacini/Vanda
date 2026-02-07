@@ -34,6 +34,7 @@ stages:
     includes:
       - modules/50-install-debs.yml
       - modules/60-install-tailscale.yml
+      - modules/90-plymouth-prereq.yml
 
   # Put your custom actions above this comment
 
