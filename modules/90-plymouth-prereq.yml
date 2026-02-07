@@ -1,5 +1,0 @@
-name: plymouth-prereq
-type: shell
-commands:
-  - sed -i 's/^\techo "udev"$/\techo="plymouth"/g' /usr/share/initramfs-tools/hooks/dmsetup
-  - sed -i 's/^PREREQ=""$/PREREQ="udev"/g' /usr/share/initramfs-tools/hooks/plymouth
