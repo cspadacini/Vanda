@@ -34,6 +34,11 @@ stages:
     includes:
       - modules/50-install-debs.yml
       - modules/60-install-tailscale.yml
+  
+  - name: custom-setup
+    type: shell
+    commands:
+    - mv /usr/share/initramfs-tools/scripts/init-bottom/plymouth /usr/share/initramfs-tools/scripts/init-top/plymouth
 
   # Put your custom actions above this comment
 
