@@ -48,6 +48,7 @@ stages:
     - apt-get autoremove -y
     - apt-get clean
     - lpkg --lock
+    - rsync -a /etc/ /sysconf/
 
   - name: fsguard
     type: fsguard
