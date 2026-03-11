@@ -18,21 +18,22 @@ stages:
   - name: init-setup
     type: shell
     commands:
-    - lpkg --unlock
-    - apt-get update
+      - lpkg --unlock
+      - apt-get update
 
   # Put your custom actions below this comment
 
   - name: copy-configs
     type: shell
     commands:
-    - rsync -a /etc/modprobe.d/alc287.conf /sysconf/modprobe.d/alc287.conf
+      - rsync -a /etc/modprobe.d/alc287.conf /sysconf/modprobe.d/alc287.conf
 
   - name: extra-packages
     type: apt
     source:
       packages:
-      - libfuse2t64
+        - podman-compose
+        - libfuse2t64
 
   - name: extra-modules
     type: includes
@@ -50,9 +51,9 @@ stages:
   - name: cleanup
     type: shell
     commands:
-    - apt-get autoremove -y
-    - apt-get clean
-    - lpkg --lock
+      - apt-get autoremove -y
+      - apt-get clean
+      - lpkg --lock
 
   - name: fsguard
     type: fsguard
