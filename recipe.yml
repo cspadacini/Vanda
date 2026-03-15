@@ -2,7 +2,7 @@ name: Custom Vanilla Desktop
 id: vanda
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/desktop:main
+  base: ghcr.io/vanilla-os/desktop:dev
   singlelayer: false
   labels:
     maintainer: self-maintained
