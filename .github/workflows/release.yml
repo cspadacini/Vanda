@@ -17,19 +17,19 @@ jobs:
       contents: write # Allow actions to create release
       attestations: write # To create and write attestations
       id-token: write # Additional permissions for the persistence of the attestations
-    
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: vanilla-os/vib-gh-action@v0.8.1
+      - uses: vanilla-os/vib-gh-action@v1.0.7
         with:
             recipe: 'recipe.yml'
             plugins: 'Vanilla-OS/vib-fsguard:v1.5.3'
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
             name: Containerfile
             path: Containerfile
@@ -41,6 +41,6 @@ jobs:
 
       - name: Attest Release Files
         id: attest
-        uses: actions/attest-build-provenance@v4
+        uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'Containerfile'
