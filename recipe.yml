@@ -1,14 +1,17 @@
 name: Custom Vanilla Desktop
 id: vanda
+vibversion: 1.0.7
+
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:dev
+  addincludes: true
   singlelayer: false
   labels:
     maintainer: self-maintained
   args:
     DEBIAN_FRONTEND: noninteractive
-  
+
   # Commands to run first before building the modules
   runs:
     commands:
@@ -30,8 +33,8 @@ stages:
 
   - name: extra-packages
     type: apt
-    source:
-      packages:
+    sources:
+      - packages:
         - podman-compose
         - libfuse2t64
 
@@ -40,7 +43,7 @@ stages:
     includes:
       - modules/50-install-debs.yml
       - modules/60-install-tailscale.yml
-  
+
   # Put your custom actions above this comment
 
   - name: set-image-name-abroot
@@ -74,4 +77,3 @@ stages:
     commands:
       - rm -rf /tmp/*
       - rm -rf /var/tmp/*
-      - rm -rf /sources
