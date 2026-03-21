@@ -1,14 +1,17 @@
 name: Custom Vanilla Desktop
 id: vanda
+vibversion: 1.0.7
+
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/desktop:main
+  base: ghcr.io/vanilla-os/desktop:dev
+  addincludes: true
   singlelayer: false
   labels:
     maintainer: self-maintained
   args:
     DEBIAN_FRONTEND: noninteractive
-  
+
   # Commands to run first before building the modules
   runs:
     commands:
@@ -18,23 +21,29 @@ stages:
   - name: init-setup
     type: shell
     commands:
-    - lpkg --unlock
-    - apt-get update
+      - lpkg --unlock
+      - apt-get update
 
   # Put your custom actions below this comment
 
+  - name: copy-configs
+    type: shell
+    commands:
+      - rsync -a /etc/modprobe.d/alc287.conf /sysconf/modprobe.d/alc287.conf
+
   - name: extra-packages
     type: apt
-    source:
-      packages:
-      - libfuse2t64
+    sources:
+      - packages:
+        - podman-compose
+        - libfuse2t64
 
   - name: extra-modules
     type: includes
     includes:
       - modules/50-install-debs.yml
       - modules/60-install-tailscale.yml
-  
+
   # Put your custom actions above this comment
 
   - name: set-image-name-abroot
@@ -45,9 +54,9 @@ stages:
   - name: cleanup
     type: shell
     commands:
-    - apt-get autoremove -y
-    - apt-get clean
-    - lpkg --lock
+      - apt-get autoremove -y
+      - apt-get clean
+      - lpkg --lock
 
   - name: fsguard
     type: fsguard
@@ -68,4 +77,3 @@ stages:
     commands:
       - rm -rf /tmp/*
       - rm -rf /var/tmp/*
-      - rm -rf /sources
